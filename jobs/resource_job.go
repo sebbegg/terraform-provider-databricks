@@ -137,6 +137,7 @@ type JobSettings struct {
 	Tasks       []JobTaskSettings `json:"tasks,omitempty" tf:"alias:task"`
 	Format      string            `json:"format,omitempty" tf:"computed"`
 	JobClusters []JobCluster      `json:"job_clusters,omitempty" tf:"alias:job_cluster"`
+	Tags        map[string]string `json:"tags,omitempty" tf:"alias:tags"`
 	// END Jobs API 2.1
 
 	// BEGIN Jobs + Repo integration preview
@@ -465,6 +466,10 @@ var jobSchema = common.StructToSchema(JobSettings{},
 			Optional: true,
 			Default:  false,
 			Type:     schema.TypeBool,
+		}
+		s["tags"] = &schema.Schema{
+			Optional: true,
+			Type:     schema.TypeMap,
 		}
 		return s
 	})
